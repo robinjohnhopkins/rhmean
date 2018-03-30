@@ -80,4 +80,3 @@ export function setTokenCookie(req, res) {
   res.cookie('token', token);
   res.redirect('/');
 }
- 
