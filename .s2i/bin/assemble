@@ -1,5 +1,8 @@
 #!/bin/bash
 echo "Before assembling==================="
+ls -al /opt/app-root/src/.babel.json
+rm /opt/app-root/src/.babel.json
+ls -al /opt/app-root/src/
 
 /usr/libexec/s2i/assemble
 rc=$?
@@ -8,7 +11,10 @@ if [ $rc -eq 0 ]; then
     echo "After successful assembling"
     echo running .s2i/bin/assemble =========================
     pwd
-    ls
+    ls -al
+    touch /opt/app-root/src/.babel.json
+    chmod 666 /opt/app-root/src/.babel.json
+    ls -al /opt/app-root/src/.babel.json
     #echo explicitly:npm run ngbuild
     #npm run ngbuild
     echo explicitly:./node_modules/.bin/gulp build
