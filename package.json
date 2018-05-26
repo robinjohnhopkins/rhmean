@@ -134,7 +134,7 @@
     "supertest": "^1.1.0"
   },
   "engines": {
-    "node": "^8.9.4",
+    "node": "^8.11.1",
     "npm": "^3.9.5"
   },
   "scripts": {
