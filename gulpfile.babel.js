@@ -308,6 +308,16 @@ gulp.task('start:server:prod', () => {
         .on('log', onServerLog);
 });
 
+gulp.task('start:server:proddist', () => {
+    process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+    process.env.BABEL_DISABLE_CACHE=1;
+    console.log('start:server:proddist');
+    console.log(`./${paths.dist}/${serverPath}/config/environment`);
+    config = require(`./${paths.dist}/${serverPath}/config/environment`);
+    nodemon(`-w ${paths.dist}/${serverPath} ${paths.dist}/${serverPath}`)
+        .on('log', onServerLog);
+});
+
 gulp.task('start:server:debug', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
     config = require(`./${serverPath}/config/environment`);
@@ -373,7 +383,7 @@ gulp.task('serve:distrh', cb => {
     runSequence(
         'env:all',
         'env:prod',
-        ['start:server:prod'],
+        ['start:server:proddist'],
         cb);
 });
 
