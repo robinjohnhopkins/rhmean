@@ -4,10 +4,10 @@ public
 .sass-cache
 .idea
 client/bower_components
-client/app.html
+client/app.html.this.gets.written.during.build.but.wasnt.in.deployed.openshift.image
 dist
 /server/config/local.env.js
 npm-debug.log
 coverage
 server/config/local.env
-
+.DS_Store
