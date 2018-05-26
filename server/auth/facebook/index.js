@@ -6,9 +6,12 @@ import {setTokenCookie} from '../auth.service';
 
 var router = express.Router();
 
+//RH NOTE scope was this. see https://developers.facebook.com/docs/facebook-login/permissions/v3.0
+// scope: ['email', 'user_about_me'],  try scope: ['email', 'user_gender'],
+
 router
   .get('/', passport.authenticate('facebook', {
-    scope: ['email', 'user_about_me'],
+    scope: ['email'],
     failureRedirect: '/signup',
     session: false
   }))

@@ -45,6 +45,8 @@ Then have a C:\ajs\mean1\.vscode\launch.json with
     ]
 }
 
+https://developers.facebook.com/docs/facebook-login/permissions
+
 ## Build & development
 
 Run `gulp build` for building and `gulp serve` for preview.
