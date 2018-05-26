@@ -15,7 +15,9 @@ if [ $rc -eq 0 ]; then
     ls -al ./node_modules/.bin/gulp
     ./node_modules/.bin/gulp build
     echo done ========================
-    ls client
+    ls -al client
+    ls -al .
+    pwd
 else
     echo "After failed assembling=================="
 fi
