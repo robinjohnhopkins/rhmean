@@ -371,7 +371,6 @@ gulp.task('serve:dist', cb => {
 
 gulp.task('serve:distrh', cb => {
     runSequence(
-        'build',
         'env:all',
         'env:prod',
         ['start:server:prod'],

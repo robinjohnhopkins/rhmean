@@ -13,7 +13,7 @@ if [ $rc -eq 0 ]; then
     #npm run ngbuild
     echo explicitly:./node_modules/.bin/gulp build
     ls -al ./node_modules/.bin/gulp
-    #./node_modules/.bin/gulp build
+    ./node_modules/.bin/gulp build
     echo done ========================
     ls -al client
     ls -al .
