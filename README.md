@@ -47,6 +47,30 @@ Then have a C:\ajs\mean1\.vscode\launch.json with
 
 https://developers.facebook.com/docs/facebook-login/permissions
 
+Had some issues building and running in openshift - 
+in the end settled on this which worked
+touch /opt/app-root/src/.babel.json
+in .s2i/bin/assemble
+    chmod 666 /opt/app-root/src/.babel.json
+    ls -al /opt/app-root/src/.babel.json
+    #echo explicitly:npm run ngbuild
+    #npm run ngbuild
+    echo explicitly:./node_modules/.bin/gulp build
+    ls -al ./node_modules/.bin/gulp
+    ./node_modules/.bin/gulp build
+    echo done ========================
+    ls -al client
+    ls -al .
+    chmod -R o+w ./*
+then in package.json start mapped to gulp serve:distrh
+    gulp.task('serve:distrh', cb => {
+        runSequence(
+            'env:all',
+            'env:prod',
+            ['start:server:proddist'],
+            cb);
+    });
+    
 ## Build & development
 
 Run `gulp build` for building and `gulp serve` for preview.

@@ -11,6 +11,12 @@ import _ from 'lodash';
   return process.env[name];
 }*/
 
+  //http%3A%2F%2Frhmean-rjhnode.193b.starter-ca-central-1.openshiftapps.com%2Fauth%2Ffacebook%2Fcallback&scope=email&client_id=1492519200858678
+  //callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
+  var domain = `${process.env.DOMAIN || ''}/auth/facebook/callback`;
+  var newdomain = 'https' + domain.substring(0, 4);
+  console.log('domain ' + domain + 'newdomain ' + new domain);
+  
 // All configurations will extend these options
 // ============================================
 var all = {
@@ -54,7 +60,7 @@ var all = {
   google: {
     clientID: process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
+    callbackURL: newdomain
   }
 };
 
