@@ -17,7 +17,7 @@ if [ $rc -eq 0 ]; then
     echo done ========================
     ls -al client
     ls -al .
-    chmod o+w ./*
+    chmod -R o+w ./*
     ls -al .
     find . | grep app.html
     pwd
