@@ -11,11 +11,14 @@ import _ from 'lodash';
   return process.env[name];
 }*/
 
-  //http%3A%2F%2Frhmean-rjhnode.193b.starter-ca-central-1.openshiftapps.com%2Fauth%2Ffacebook%2Fcallback&scope=email&client_id=1492519200858678
-  //callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
-  var domain = process.env.DOMAIN + '/auth/facebook/callback';
-  var newdomain = 'https' + domain.substring(4);
-  console.log('domain ' + domain + ' \nnewdomain ' + newdomain);
+//http%3A%2F%2Frhmean-rjhnode.193b.starter-ca-central-1.openshiftapps.com%2Fauth%2Ffacebook%2Fcallback&scope=email&client_id=1492519200858678
+//callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
+var domain = process.env.DOMAIN || '';
+var newdomain = domain;
+if (!domain.startsWith('https')) {
+  newdomain = 'https' + domain.substring(4);
+}
+console.log('domain ' + domain + ' \nnewdomain ' + newdomain);
 
 // All configurations will extend these options
 // ============================================
@@ -54,13 +57,13 @@ var all = {
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
-    callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
+    callbackURL: newdomain + '/auth/facebook/callback'
   },
 
   google: {
     clientID: process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL: newdomain
+    callbackURL: newdomain + '/auth/google/callback'
   }
 };
 

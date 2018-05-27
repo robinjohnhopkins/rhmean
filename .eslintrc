@@ -57,7 +57,7 @@
         "no-else-return": 0,                                        //disallow else after a return in an if
         "no-empty-function": 0,                                     //disallow use of empty functions
         "no-empty-pattern": 2,                                      //disallow use of empty destructuring patterns
-        "no-eq-null": 2,                                            //disallow comparisons to null without a type-checking operator
+//        "no-eq-null": 2,                                            //disallow comparisons to null without a type-checking operator
         "no-eval": 2,                                               //disallow use of eval()
         "no-extend-native": 0,                                      //disallow adding to native types
         "no-extra-bind": 1,                                         //disallow unnecessary function binding
