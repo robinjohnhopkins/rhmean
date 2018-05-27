@@ -5,7 +5,7 @@ var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
 var mongoURLLabel = '';
 
-if (mongoURL === null && process.env.DATABASE_SERVICE_NAME) {
+if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
   var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase();
   var mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'];
   var mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'];
@@ -25,7 +25,7 @@ if (mongoURL === null && process.env.DATABASE_SERVICE_NAME) {
     mongoURL += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
   }
 }
-if (mongoURL === null) {
+if (mongoURL == null) {
   // mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
   mongoURL = 'mongodb://mongo:mongo@localhost:27017/exampledb?authSource=admin';
 }
