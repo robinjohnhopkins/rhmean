@@ -11,7 +11,7 @@ export class MainController {
     this.$http = $http;
     this.socket = socket;
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
   }
@@ -25,7 +25,7 @@ export class MainController {
   }
 
   addThing() {
-    if(this.newThing) {
+    if (this.newThing) {
       this.$http.post('/api/things', {
         name: this.newThing
       });

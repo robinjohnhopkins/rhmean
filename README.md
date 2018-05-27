@@ -70,7 +70,8 @@ then in package.json start mapped to gulp serve:distrh
             ['start:server:proddist'],
             cb);
     });
-    
+npm i;gulp build;npm start               # then mirrors what is happening on open shift
+
 ## Build & development
 
 Run `gulp build` for building and `gulp serve` for preview.

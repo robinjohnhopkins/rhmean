@@ -149,17 +149,17 @@
         "id-blacklist": 0,                                          //blacklist certain identifiers to prevent them being used
         "id-length": 0,                                             //this option enforces minimum and maximum identifier lengths (variable names, property names etc.)
         "id-match": 0,                                              //require identifiers to match the provided regular expression
-        "indent": ["error", 2],                                     //specify tab or space width for your code
+//        "indent": ["error", 2],                                     //specify tab or space width for your code
         "jsx-quotes": 0,                                            //specify whether double or single quotes should be used in JSX attributes
         "key-spacing": 2,                                           //enforce spacing between keys and values in object literal properties
         "keyword-spacing": [2, {
             "before": true,
             "after": true,
             "overrides": {
-                "if": {"after": false},
+                "if": {"after": true},
                 "for": {"after": false},
                 "while": {"after": false},
-                "catch": {"after": false}
+                "catch": {"after": true}
             }
         }],                                                         //enforce spacing before and after keywords
         "linebreak-style": 2,                                       //disallow mixed 'LF' and 'CRLF' as linebreaks
@@ -214,7 +214,7 @@
         "semi": 2,                                                  //require or disallow use of semicolons instead of ASI
         "sort-vars": 0,                                             //sort variables within the same declaration block
         "space-before-blocks": 2,                                   //require or disallow a space before blocks
-        "space-before-function-paren": [2, "never"],                //require or disallow a space before function opening parenthesis
+  //      "space-before-function-paren": [2, "never"],                //require or disallow a space before function opening parenthesis
         "space-in-parens": 2,                                       //require or disallow spaces inside parentheses
         "space-infix-ops": 2,                                       //require spaces around operators
         "space-unary-ops": 2,                                       //require or disallow spaces before/after unary operators

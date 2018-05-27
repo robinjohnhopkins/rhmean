@@ -9,7 +9,7 @@ import User from '../api/user/user.model';
 import config from './environment/';
 
 export default function seedDatabaseIfNeeded() {
-  if(config.seedDB) {
+  if (config.seedDB) {
     Thing.find({}).remove()
       .then(() => {
         let thing = Thing.create({

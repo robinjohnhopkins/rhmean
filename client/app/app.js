@@ -29,17 +29,17 @@ import socket from '../components/socket/socket.service';
 import './app.scss';
 
 angular.module('mean1App', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', ngRoute,
-  uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
-  socket, util
-])
+    uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
+    socket, util
+  ])
   .config(routeConfig)
-  .run(function($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, Auth) {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
 
-    $rootScope.$on('$stateChangeStart', function(event, next) {
-      Auth.isLoggedIn(function(loggedIn) {
-        if(next.authenticate && !loggedIn) {
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      Auth.isLoggedIn(function (loggedIn) {
+        if (next.authenticate && !loggedIn) {
           $location.path('/login');
         }
       });

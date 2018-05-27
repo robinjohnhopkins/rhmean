@@ -13,10 +13,10 @@ import _ from 'lodash';
 
   //http%3A%2F%2Frhmean-rjhnode.193b.starter-ca-central-1.openshiftapps.com%2Fauth%2Ffacebook%2Fcallback&scope=email&client_id=1492519200858678
   //callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
-  var domain = `${process.env.DOMAIN || ''}/auth/facebook/callback`;
-  var newdomain = 'https' + domain.substring(0, 4);
-  console.log('domain ' + domain + 'newdomain ' + new domain);
-  
+  var domain = process.env.DOMAIN + '/auth/facebook/callback';
+  var newdomain = 'https' + domain.substring(4);
+  console.log('domain ' + domain + ' \nnewdomain ' + newdomain);
+
 // All configurations will extend these options
 // ============================================
 var all = {
