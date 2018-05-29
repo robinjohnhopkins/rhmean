@@ -18,6 +18,7 @@ import {protractor, webdriver_update} from 'gulp-protractor';
 import {Instrumenter} from 'isparta';
 import webpack from 'webpack-stream';
 import makeWebpackConfig from './webpack.make';
+const debug = require('gulp-debug-streams');
 
 var plugins = gulpLoadPlugins();
 var config;
@@ -345,6 +346,7 @@ gulp.task('serve', cb => {
             'lint:scripts',
             'inject',
             'copy:fonts:dev',
+            // 'copy:scripts:dev',
             'env:all'
         ],
         // 'webpack:dev',
@@ -361,6 +363,7 @@ gulp.task('serve:debug', cb => {
             'lint:scripts',
             'inject',
             'copy:fonts:dev',
+            // 'copy:scripts:dev',
             'env:all'
         ],
         'webpack:dev',
@@ -485,6 +488,7 @@ gulp.task('build', cb => {
             'copy:extras',
             'copy:assets',
             'copy:fonts:dist',
+//            'copy:scripts:dist',
             'copy:server',
             'webpack:dist'
         ],
@@ -545,14 +549,31 @@ function flatten() {
     });
 }
 gulp.task('copy:fonts:dev', () => {
+    console.log('copy:fonts:dev===========================================================');
     return gulp.src('node_modules/{bootstrap,font-awesome}/fonts/*')
         .pipe(flatten())
         .pipe(gulp.dest(`${clientPath}/assets/fonts`));
 });
 gulp.task('copy:fonts:dist', () => {
+    console.log('copy:fonts:dist===========================================================');
     return gulp.src('node_modules/{bootstrap,font-awesome}/fonts/*')
+        .pipe(debug({title: 'unicorn3:'}))
         .pipe(flatten())
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts`));
+});
+gulp.task('copy:scripts:dev', () => {
+    console.log('copy:scripts:dev===========================================================' + `${clientPath}/assets/scripts`);
+    return gulp.src('node_modules/ngmap/build/scripts/ng-map.min.js')
+        .pipe(debug({title: 'unicorn1:'}))
+        .pipe(flatten())
+        .pipe(gulp.dest(`${clientPath}/assets/scripts`));
+});
+gulp.task('copy:scripts:dist', () => {
+    console.log('copy:scripts:dist===========================================================' + `${clientPath}/assets/scripts`);
+    return gulp.src('node_modules/ngmap/build/scripts/ng-map.min.js')
+        .pipe(debug({title: 'unicorn2:'}))
+        .pipe(flatten())
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/scripts`));
 });
 
 gulp.task('copy:assets', () => {

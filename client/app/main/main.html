@@ -9,7 +9,11 @@
     <div class="col-lg-12">
       <h1 class="page-header">Features:</h1>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in $ctrl.awesomeThings">
-        <li><a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button></a></li>
+        <li>
+          <a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}
+            <button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -23,4 +27,62 @@
       </span>
     </p>
   </form>
+  <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBW0td9v69m95iy5Q2YiMebpIO7ztCnuPU">
+    <!-- <ng-map center="51.8513663338609, -2.0978219003906133" zoom="10">
+
+      <marker id="mymarker" position="[51.85, -2.09]" title="Hello Marker" animation="Animation.BOUNCE" draggable="true" visible="true" icon="/images/active_marker.png"></marker>
+  
+      
+      <marker position="[51.851, -2.281]" title="Marker 2" animation="Animation.DROP" draggable="true" visible="true" icon="/images/active_marker.png"></marker>
+      <info-window id="bar" position="51.82, -2.09" visible="true">
+        <div ng-non-bindable>
+          <div id="siteNotice"></div>
+        </div>
+      </info-window>
+
+
+      <custom-control id="home" position="TOP_RIGHT" index="1" on-click="click()">
+        <div style="background-color: black; color:#fff;cursor:pointer">Home1</div>
+      </custom-control>
+    
+  </div> -->
+  <ng-map default-style="true" center="51.8513663338609, -2.0978219003906133" zoom="10">
+
+      <info-window id="myInfoWindow" >
+        <div ng-non-bindable>
+          <h4>{{selectedPerson.name}}</h4>
+        </div> 
+      </info-window>
+  
+      <marker ng-repeat="p in a_people" 
+        position="{{p.pos}}" title="{{p.name}}"  id="{{p.id}}"  on-click="showPerson(event, p)">
+      </marker>
+    </ng-map>
+
+
 </div>
+      <!-- This loads a google graphic over australia
+        <map-data load-geo-json="https://storage.googleapis.com/maps-devrel/google.json"></map-data>
+         -->
+
+      <!-- <custom-marker ng-repeat="p in $ctrl.positions track by $index"
+          id="custom-marker-{{$index}}"
+          on-click="$ctrl.map.showInfoWindow('foo', 'custom-marker-'+$index)"
+          position="{{p.pos}}">
+          <div>
+            position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
+          </div>
+        </custom-marker>
+    
+        <info-window id="foo" on-mouseover="$ctrl.mouseover()">
+          <div ng-non-bindable="">
+            Lat: {{anchor.getPosition().lat()}}<br/>
+            Lng: {{anchor.getPosition().lng()}}<br/>
+          </div>
+        </info-window>
+     -->
+    </ng-map>
+  </div>
+</div>
+<script src="/public/scripts/ng-map.min.js"></script>
+<script src="http://maps.google.com/maps/api/js"></script>

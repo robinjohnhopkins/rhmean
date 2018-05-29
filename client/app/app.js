@@ -25,12 +25,13 @@ import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
+import ngMap from "ngmap";
 
 import './app.scss';
 
 angular.module('mean1App', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', ngRoute,
     uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
-    socket, util
+    socket, util, ngMap
   ])
   .config(routeConfig)
   .run(function ($rootScope, $location, Auth) {

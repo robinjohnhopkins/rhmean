@@ -25,6 +25,8 @@ var MongoStore = connectMongo(session);
 export default function (app) {
   var env = app.get('env');
 
+  app.use(express.static(path.join(config.root, 'public')));
+
   if (env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
   }
