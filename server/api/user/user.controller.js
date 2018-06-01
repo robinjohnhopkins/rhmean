@@ -103,6 +103,39 @@ export function changePassword(req, res) {
 }
 
 /**
+ * update user
+ */
+export function update(req, res) {
+  console.log('update called on svr');
+  // body:
+  // { _id: '5b11b801204087b98d43e2a6',
+  //   provider: 'local',
+  //   name: 'Test User',
+  //   email: 'test@example.com',
+  //   __v: 0,
+  //   role: 'user',
+  //   enabled: false },
+  console.log(req.body);
+  
+  var userId = req.body._id;
+  var newuser = req.body;
+
+  return User.findById(userId).exec()
+    .then(user => {
+      if (user) {
+        user.enabled = newuser.enabled;
+        return user.save()
+          .then(() => {
+            res.status(204).end();
+          })
+          .catch(validationError(res));
+      } else {
+        return res.status(403).end();
+      }
+    });
+}
+
+/**
  * Get my info
  */
 export function me(req, res, next) {

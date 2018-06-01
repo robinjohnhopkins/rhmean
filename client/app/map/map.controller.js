@@ -1,6 +1,6 @@
 'use strict';
 
-const ngRoute = require('angular-route');
+//const ngRoute = require('angular-route');
 
 export default class MapController {
   /*@ngInject*/

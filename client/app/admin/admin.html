@@ -5,9 +5,15 @@
 	    <div class="user-info">
 	        <strong>{{user.name}}</strong><br>
 	        <span class="text-muted">{{user.email}}</span>
-	        <span class="text-muted">({{user.role}})</span>
+          <span class="text-muted">({{user.role}})</span>
+          <span>
+            <input type="checkbox" ng-model="user.enabled"
+            ng-true-value="true" ng-false-value="false">
+          </span>
 	    </div>
-        <a ng-click="admin.delete(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
+      <a ng-click="admin.update(user)" class="floppy"><span class="fa fa-floppy-o fa-2x"></span></a>
+      &nbsp;&nbsp;
+      <a ng-click="admin.delete(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
     </li>
   </ul>
 </div>
