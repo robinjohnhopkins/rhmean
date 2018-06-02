@@ -5,6 +5,8 @@ export default class AdminController {
   constructor(User) {
     // Use the User $resource to fetch all users
     this.users = User.query();
+    console.log('ctr users');
+    console.log(this.users);
   }
 
   update(user) {

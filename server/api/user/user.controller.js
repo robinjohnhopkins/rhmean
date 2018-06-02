@@ -124,6 +124,9 @@ export function update(req, res) {
     .then(user => {
       if (user) {
         user.enabled = newuser.enabled;
+        user.lastlatitude = newuser.lastlatitude;
+        user.lastlongitude = newuser.lastlongitude;
+
         return user.save()
           .then(() => {
             res.status(204).end();

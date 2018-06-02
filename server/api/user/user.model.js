@@ -46,7 +46,15 @@ var UserSchema = new Schema({
   salt: String,
   facebook: {},
   google: {},
-  github: {}
+  github: {},
+  lastlatitude:{
+    type: Number,
+    default: 51.8
+  },
+  lastlongitude:{
+    type: Number,
+    default: -2.02
+  }
 });
 
 /**
