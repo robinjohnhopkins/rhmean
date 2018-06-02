@@ -6,7 +6,7 @@ export default function routes($routeProvider) {
   $routeProvider.when('/map', {
     template: require('./map.html'),
     controller: 'MapController',
-    controllerAs: 'admin',
-    authenticate: 'admin'
+    controllerAs: 'mapctl',
+    authenticate: true
   });
 }

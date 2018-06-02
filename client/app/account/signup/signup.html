@@ -10,7 +10,7 @@
                                             'has-error': form.name.$invalid && vm.submitted }">
           <label>Name</label>
 
-          <input type="text" name="name" class="form-control" ng-model="vm.user.name"
+          <input type="text" name="name" class="form-control" ng-model="vm.user.name" ng-change="vm.changeField(form, 'name')"
                  required/>
           <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
             A name is required
@@ -21,7 +21,7 @@
                                             'has-error': form.email.$invalid && vm.submitted }">
           <label>Email</label>
 
-          <input type="email" name="email" class="form-control" ng-model="vm.user.email"
+      <input type="email" name="email" class="form-control" ng-model="vm.user.email" ng-change="vm.changeField(form, 'email')"
                  required
                  mongoose-error/>
           <p class="help-block" ng-show="form.email.$error.email && vm.submitted">

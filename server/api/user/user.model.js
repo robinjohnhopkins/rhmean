@@ -21,11 +21,11 @@ var UserSchema = new Schema({
     type: String,
     lowercase: true,
     required() {
-      if (authTypes.indexOf(this.provider) === -1) {
+      // if (authTypes.indexOf(this.provider) === -1) {
         return true;
-      } else {
-        return false;
-      }
+      // } else {
+        // return false;
+      // }
     }
   },
   role: {
@@ -101,9 +101,9 @@ UserSchema
 UserSchema
   .path('email')
   .validate(function (value) {
-    if (authTypes.indexOf(this.provider) !== -1) {
-      return true;
-    }
+    // if (authTypes.indexOf(this.provider) !== -1) {
+    //   return true;
+    // }
 
     return this.constructor.findOne({
         email: value
@@ -113,6 +113,7 @@ UserSchema
           if (this.id === user.id) {
             return true;
           }
+          console.log('The specified email address is already in use.' + value);
           return false;
         }
         return true;
@@ -121,6 +122,29 @@ UserSchema
         throw err;
       });
   }, 'The specified email address is already in use.');
+
+// Validate name is not taken
+UserSchema
+  .path('name')
+  .validate(function (value) {
+
+    return this.constructor.findOne({
+        name: value
+      }).exec()
+      .then(user => {
+        if (user) {
+          if (this.id === user.id) {
+            return true;
+          }
+          console.log('The specified username is already in use.' + value);
+          return false;
+        }
+        return true;
+      })
+      .catch(function (err) {
+        throw err;
+      });
+  }, 'The specified username is already in use.');
 
 var validatePresenceOf = function (value) {
   return value && value.length;
