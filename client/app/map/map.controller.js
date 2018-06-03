@@ -92,7 +92,7 @@ export default class MapController {
 
   } // end constructor
 
-  getPeopleArrayInstanceFromCurrentUser = function () {
+  getPeopleArrayInstanceFromCurrentUser() {
     var returnUser = null;
     if (this.currentUser) {
       this.$scope.a_people.forEach(user => {
@@ -105,7 +105,7 @@ export default class MapController {
     return returnUser;
   };
 
-  moveDemo = function () {
+  moveDemo() {
     console.log('move demo');
     this.$scope.enableMovement = !this.$scope.enableMovement;
     var $scope = this.$scope;
@@ -131,7 +131,7 @@ export default class MapController {
         if (person) {
           person.pos = pos;
         } else {
-          console.log('cannot find me)');
+          console.log('cannot find me');
         }
 
       }, function (failure) {
@@ -147,6 +147,9 @@ export default class MapController {
     }
   }
 
-
+  statusUpdate(){
+    console.log('statusUpdate ' + this.currentUser.status);
+    this.currentUser.$save();
+  }
 
 }

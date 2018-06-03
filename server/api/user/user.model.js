@@ -32,6 +32,10 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  status: {
+    type: String,
+    default: 'chillaxing'
+  },
   password: {
     type: String,
     required() {
