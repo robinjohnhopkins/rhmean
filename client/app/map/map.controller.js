@@ -9,10 +9,10 @@ export default class MapController {
     console.log('smart');
     console.log(this);
     console.log(this.$scope);
-    this.$scope.movecount = 0;
-    this.$scope.pluslatitude = 0.001;
-    this.$scope.pluslongitude = 0.001;
-    this.$scope.enableMovement = false;
+    this.movecount = 0;
+    this.pluslatitude = 0.001;
+    this.pluslongitude = 0.001;
+    this.enableMovement = false;
 
     this.$scope.a_people = [{
         id: 1,
@@ -28,6 +28,7 @@ export default class MapController {
 
     User.query().$promise.then(function (users) {
         var idx = 2;
+        vm.users = users;
         if (users.length) {
           users.forEach(user => {
             idx = idx + 1
@@ -74,14 +75,14 @@ export default class MapController {
       $scope.map.showInfoWindow('myInfoWindow', this);
     };
     $scope.callAtInterval = function () {
-      if (vm.$scope.enableMovement) {
+      if (vm.enableMovement) {
         console.log("$scope.callAtInterval - Interval occurred");
-        vm.$scope.a_people[0].pos[0] += vm.$scope.pluslatitude;
-        vm.$scope.a_people[0].pos[1] += vm.$scope.pluslongitude;
-        if (vm.$scope.movecount++ > 20) {
-          vm.$scope.movecount = 0;
-          vm.$scope.pluslatitude = -vm.$scope.pluslatitude;
-          vm.$scope.pluslongitude = -vm.$scope.pluslongitude;
+        vm.$scope.a_people[0].pos[0] += vm.pluslatitude;
+        vm.$scope.a_people[0].pos[1] += vm.pluslongitude;
+        if (vm.movecount++ > 20) {
+          vm.movecount = 0;
+          vm.pluslatitude = -vm.pluslatitude;
+          vm.pluslongitude = -vm.pluslongitude;
         }
       }
     }
@@ -107,7 +108,7 @@ export default class MapController {
 
   moveDemo() {
     console.log('move demo');
-    this.$scope.enableMovement = !this.$scope.enableMovement;
+    this.enableMovement = !this.enableMovement;
     var $scope = this.$scope;
     var vm = this;
     var handleLocationError = function (browserHasGeolocation, failure) {
