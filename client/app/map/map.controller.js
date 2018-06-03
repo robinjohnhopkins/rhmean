@@ -6,12 +6,15 @@ export default class MapController {
     // Use the User $resource to fetch all users
     var vm = this;
     this.$scope = $scope;
+    console.log('smart');
+    console.log(this);
+    console.log(this.$scope);
     this.$scope.movecount = 0;
     this.$scope.pluslatitude = 0.001;
     this.$scope.pluslongitude = 0.001;
     this.$scope.enableMovement = false;
 
-    $scope.a_people = [{
+    this.$scope.a_people = [{
         id: 1,
         name: 'Fred',
         pos: [51.8413663338609, -2.0978219003906133]
@@ -28,7 +31,7 @@ export default class MapController {
         if (users.length) {
           users.forEach(user => {
             idx = idx + 1
-            $scope.a_people.push({
+            vm.$scope.a_people.push({
               id: idx,
               name: user.name,
               pos: [user.lastlatitude, user.lastlongitude]
@@ -39,7 +42,16 @@ export default class MapController {
       },
       // on failure...
       function (errorMsg) {
-        console.log('Something went wrong: ' + errorMsg);
+        console.log('Error get all users: ' + errorMsg);
+      });
+    User.get().$promise.then(function (currentUser) {
+        console.log('currentUser');
+        console.log(currentUser);
+        vm.currentUser = currentUser;
+      },
+      // on failure...
+      function (errorMsg) {
+        console.log('Error get currentUser: ' + errorMsg);
       });
 
     vm.setPositions = function (pos) {
@@ -66,7 +78,7 @@ export default class MapController {
         console.log("$scope.callAtInterval - Interval occurred");
         vm.$scope.a_people[0].pos[0] += vm.$scope.pluslatitude;
         vm.$scope.a_people[0].pos[1] += vm.$scope.pluslongitude;
-        if (vm.$scope.movecount++ > 20){
+        if (vm.$scope.movecount++ > 20) {
           vm.$scope.movecount = 0;
           vm.$scope.pluslatitude = -vm.$scope.pluslatitude;
           vm.$scope.pluslongitude = -vm.$scope.pluslongitude;
@@ -77,11 +89,64 @@ export default class MapController {
     $interval(function () {
       $scope.callAtInterval();
     }, 1000);
-  }
+
+  } // end constructor
+
+  getPeopleArrayInstanceFromCurrentUser = function () {
+    var returnUser = null;
+    if (this.currentUser) {
+      this.$scope.a_people.forEach(user => {
+        if (user.name === this.currentUser.name) {
+          // match
+          returnUser = user;
+        }
+      });
+    }
+    return returnUser;
+  };
 
   moveDemo = function () {
     console.log('move demo');
     this.$scope.enableMovement = !this.$scope.enableMovement;
+    var $scope = this.$scope;
+    var vm = this;
+    var handleLocationError = function (browserHasGeolocation, failure) {
+      if (failure) {
+        console.log(failure.message);
+      }
+      console.log('thought so - no location!!!!!' + browserHasGeolocation);
+    }
+
+    // Try HTML5 geolocation.Starting with Chrome 50, Chrome no longer 
+    // supports obtaining the user's location using the HTML5 
+    // Geolocation API from pages delivered by non-secure connections.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        console.log('got location!!!!!' + JSON.stringify(pos));
+        var person = vm.getPeopleArrayInstanceFromCurrentUser();
+        if (person) {
+          person.pos = pos;
+        } else {
+          console.log('cannot find me)');
+        }
+
+      }, function (failure) {
+        handleLocationError(true, failure);
+      }, {
+        maximumAge: 60000,
+        timeout: 5000,
+        enableHighAccuracy: true
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, null);
+    }
   }
+
+
 
 }
