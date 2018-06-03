@@ -8,18 +8,16 @@
             <div id="siteNotice"></div>
           </div>
         </info-window>
-        <custom-control id="home" position="TOP_RIGHT" index="1" on-click="click()">
-          <div style="background-color: black; color:#fff;cursor:pointer">Home1</div>
-        </custom-control>      
     </div> -->
     <ng-map default-style="true" center="51.8513663338609, -2.0978219003906133" zoom="10">
-
+        <custom-control id="home" position="TOP_RIGHT" index="1" ng-click="mapctl.moveDemo()">
+            <div style="background-color: black; color:#fff;cursor:pointer">demo</div>
+          </custom-control>    
       <info-window id="myInfoWindow">
         <div ng-non-bindable>
           <h4>{{selectedPerson.name}}</h4>
         </div>
       </info-window>
-
       <marker ng-repeat="p in a_people" position="{{p.pos}}" title="{{p.name}}" id="{{p.id}}" on-click="showPerson(event, p)">
       </marker>
     </ng-map>
@@ -42,9 +40,6 @@
             </div>
           </info-window>
        -->
-  <div class="user-info row">
-    <button type="button" class="close" ng-click="mapctl.moveDemo()">move demo</button>
-  </div>
   <div>
     <div class="user-info row">
       <div class="col-sm-2">

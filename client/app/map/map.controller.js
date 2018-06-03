@@ -74,24 +74,25 @@ export default class MapController {
       $scope.selectedPerson = person;
       $scope.map.showInfoWindow('myInfoWindow', this);
     };
-    $scope.callAtInterval = function () {
-      if (vm.enableMovement) {
-        console.log("$scope.callAtInterval - Interval occurred");
-        vm.$scope.a_people[0].pos[0] += vm.pluslatitude;
-        vm.$scope.a_people[0].pos[1] += vm.pluslongitude;
-        if (vm.movecount++ > 20) {
-          vm.movecount = 0;
-          vm.pluslatitude = -vm.pluslatitude;
-          vm.pluslongitude = -vm.pluslongitude;
-        }
-      }
-    }
+
 
     $interval(function () {
-      $scope.callAtInterval();
+      vm.callAtInterval();
     }, 1000);
 
   } // end constructor
+  callAtInterval() {
+    if (this.enableMovement) {
+      console.log("$scope.callAtInterval - Interval occurred");
+      this.$scope.a_people[0].pos[0] += this.pluslatitude;
+      this.$scope.a_people[0].pos[1] += this.pluslongitude;
+      if (this.movecount++ > 20) {
+        this.movecount = 0;
+        this.pluslatitude = -this.pluslatitude;
+        this.pluslongitude = -this.pluslongitude;
+      }
+    }
+  }
 
   getPeopleArrayInstanceFromCurrentUser() {
     var returnUser = null;
