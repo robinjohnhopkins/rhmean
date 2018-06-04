@@ -12,7 +12,7 @@ export default class MapController {
     this.pluslongitude = 0.001;
     this.enableMovement = false;
 
-    this.a_people = [{
+    this.people = [{
         id: 1,
         name: 'Fred',
         pos: [51.8413663338609, -2.0978219003906133]
@@ -26,17 +26,18 @@ export default class MapController {
 
     User.query().$promise.then(function (users) {
         var idx = 2;
+        var people = vm.people;
         vm.users = users;
         if (users.length) {
           users.forEach(user => {
             idx = idx + 1
-            vm.a_people.push({
+            people.push({
               id: idx,
               name: user.name,
               pos: [user.lastlatitude, user.lastlongitude]
             })
           });
-          console.log(vm._people);
+          console.log(JSON.stringify(vm.people));
         }
       },
       // on failure...
@@ -82,8 +83,8 @@ export default class MapController {
   callAtInterval() {
     if (this.enableMovement) {
       console.log("callAtInterval - Interval occurred");
-      this.a_people[0].pos[0] += this.pluslatitude;
-      this.a_people[0].pos[1] += this.pluslongitude;
+      this.people[0].pos[0] += this.pluslatitude;
+      this.people[0].pos[1] += this.pluslongitude;
       if (this.movecount++ > 20) {
         this.movecount = 0;
         this.pluslatitude = -this.pluslatitude;
@@ -95,7 +96,7 @@ export default class MapController {
   getPeopleArrayInstanceFromCurrentUser() {
     var returnUser = null;
     if (this.currentUser) {
-      this.a_people.forEach(user => {
+      this.people.forEach(user => {
         if (user.name === this.currentUser.name) {
           // match
           returnUser = user;

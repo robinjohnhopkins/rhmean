@@ -20,7 +20,7 @@
           {{ mapctl.selectedPerson.pos }}
         </div>
       </info-window>
-      <marker ng-repeat="p in mapctl.a_people" position="{{p.pos}}" title="{{p.name}}" id="{{p.id}}" on-click="mapctl.showPerson(event, p)">
+      <marker ng-repeat="p in mapctl.people" position="{{p.pos}}" title="{{p.name}}" id="{{p.id}}" on-click="mapctl.showPerson(event, p)">
       </marker>
     </ng-map>
   </div>
