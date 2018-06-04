@@ -85,11 +85,12 @@ export default class MapController {
       console.log("callAtInterval - Interval occurred");
       this.people[0].pos[0] += this.pluslatitude;
       this.people[0].pos[1] += this.pluslongitude;
-      if (this.movecount++ > 20) {
-        this.movecount = 0;
-        this.pluslatitude = -this.pluslatitude;
-        this.pluslongitude = -this.pluslongitude;
-      }
+    }
+    if (this.movecount-- <= 0) {
+      this.movecount = 120;
+      this.pluslatitude = -this.pluslatitude;
+      this.pluslongitude = -this.pluslongitude;
+      this.geolocateCurrentUser();
     }
   }
 
@@ -105,10 +106,13 @@ export default class MapController {
     }
     return returnUser;
   };
-
   moveDemo() {
     console.log('move demo');
     this.enableMovement = !this.enableMovement;
+    this.geolocateCurrentUser();
+  }
+
+  geolocateCurrentUser() {
     var vm = this;
     var handleLocationError = function (browserHasGeolocation, failure) {
       if (failure) {
@@ -126,6 +130,8 @@ export default class MapController {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        vm.currentUser.lastlatitude = position.coords.latitude;
+        vm.currentUser.lastlongitude = position.coords.longitude;
         console.log('got location!!!!!' + JSON.stringify(pos));
         var person = vm.getPeopleArrayInstanceFromCurrentUser();
         if (person) {
