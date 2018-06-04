@@ -2,19 +2,17 @@
 
 export default class MapController {
   /*@ngInject*/
-  constructor(User, NgMap, $scope, $interval) {
+  constructor(User, NgMap, $interval) {
     // Use the User $resource to fetch all users
     var vm = this;
-    this.$scope = $scope;
     console.log('smart');
     console.log(this);
-    console.log(this.$scope);
     this.movecount = 0;
     this.pluslatitude = 0.001;
     this.pluslongitude = 0.001;
     this.enableMovement = false;
 
-    this.$scope.a_people = [{
+    this.a_people = [{
         id: 1,
         name: 'Fred',
         pos: [51.8413663338609, -2.0978219003906133]
@@ -32,13 +30,13 @@ export default class MapController {
         if (users.length) {
           users.forEach(user => {
             idx = idx + 1
-            vm.$scope.a_people.push({
+            vm.a_people.push({
               id: idx,
               name: user.name,
               pos: [user.lastlatitude, user.lastlongitude]
             })
           });
-          console.log($scope._people);
+          console.log(vm._people);
         }
       },
       // on failure...
@@ -66,13 +64,12 @@ export default class MapController {
       console.log('shapes', map.shapes);
       console.log('users', vm.users);
       vm.map = map;
-      $scope.map = map;
     });
 
-    $scope.showPerson = function (event, person) {
-      console.log('person ' + person.name);
-      $scope.selectedPerson = person;
-      $scope.map.showInfoWindow('myInfoWindow', this);
+    vm.showPerson = function (event, person) {
+      vm.selectedPerson = person;
+      console.log('person ' + JSON.stringify(vm.selectedPerson));
+      vm.map.showInfoWindow('myInfoWindow', this);
     };
 
 
@@ -81,11 +78,12 @@ export default class MapController {
     }, 1000);
 
   } // end constructor
+ 
   callAtInterval() {
     if (this.enableMovement) {
-      console.log("$scope.callAtInterval - Interval occurred");
-      this.$scope.a_people[0].pos[0] += this.pluslatitude;
-      this.$scope.a_people[0].pos[1] += this.pluslongitude;
+      console.log("callAtInterval - Interval occurred");
+      this.a_people[0].pos[0] += this.pluslatitude;
+      this.a_people[0].pos[1] += this.pluslongitude;
       if (this.movecount++ > 20) {
         this.movecount = 0;
         this.pluslatitude = -this.pluslatitude;
@@ -97,7 +95,7 @@ export default class MapController {
   getPeopleArrayInstanceFromCurrentUser() {
     var returnUser = null;
     if (this.currentUser) {
-      this.$scope.a_people.forEach(user => {
+      this.a_people.forEach(user => {
         if (user.name === this.currentUser.name) {
           // match
           returnUser = user;
@@ -110,7 +108,6 @@ export default class MapController {
   moveDemo() {
     console.log('move demo');
     this.enableMovement = !this.enableMovement;
-    var $scope = this.$scope;
     var vm = this;
     var handleLocationError = function (browserHasGeolocation, failure) {
       if (failure) {

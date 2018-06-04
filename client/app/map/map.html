@@ -9,16 +9,18 @@
           </div>
         </info-window>
     </div> -->
+    {{mapctl.currentUser.name}}
     <ng-map default-style="true" center="51.8513663338609, -2.0978219003906133" zoom="10">
         <custom-control id="home" position="TOP_RIGHT" index="1" ng-click="mapctl.moveDemo()">
             <div style="background-color: black; color:#fff;cursor:pointer">demo</div>
           </custom-control>    
       <info-window id="myInfoWindow">
         <div ng-non-bindable>
-          <h4>{{selectedPerson.name}}</h4>
+          {{ mapctl.selectedPerson.name  }}
+          {{ mapctl.selectedPerson.pos }}
         </div>
       </info-window>
-      <marker ng-repeat="p in a_people" position="{{p.pos}}" title="{{p.name}}" id="{{p.id}}" on-click="showPerson(event, p)">
+      <marker ng-repeat="p in mapctl.a_people" position="{{p.pos}}" title="{{p.name}}" id="{{p.id}}" on-click="mapctl.showPerson(event, p)">
       </marker>
     </ng-map>
   </div>
