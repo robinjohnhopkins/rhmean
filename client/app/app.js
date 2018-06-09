@@ -27,12 +27,13 @@ import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
 import ngMap from "ngmap";
+import 'angular-dialog-service';
 
 import './app.scss';
 
 angular.module('mean1App', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', ngRoute,
     uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
-    socket, util, ngMap, map
+    socket, util, ngMap, map, 'dialogs.main'
   ])
   .config(routeConfig)
   .run(function ($rootScope, $location, Auth) {
