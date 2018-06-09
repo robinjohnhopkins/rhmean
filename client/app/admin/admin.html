@@ -45,50 +45,7 @@
 
       </tbody>
     </table>
-
-    <li class="list-group-item" ng-repeat="user in admin.users">
-      <div class="user-info row">
-        <div class="col-sm-2">
-          <strong>{{user.name}}</strong>
-        </div>
-        <div class="col-sm-3">
-          <span class="text-muted">{{user.email}}</span>
-        </div>
-        <div class="col-sm-1">
-          <span class="text-muted">({{user.role}})</span>
-          <span>
-            <input type="checkbox" ng-model="user.enabled" ng-true-value="true" ng-false-value="false">
-          </span>
-        </div>
-        <div class="col-sm-2">
-          <span>
-            <input step="0.000001" min="-90" max="90" size="8" type="number" class="form-control rowinput" placeholder="Add a new thing here."
-              ng-model="user.lastlatitude">
-          </span>
-        </div>
-        <div class="col-sm-2">
-          <span>
-            <input step="0.000001" min="-180" max="180" size="8" type="number" class="form-control rowinput" placeholder="Add a new thing here."
-              ng-model="user.lastlongitude">
-          </span>
-        </div>
-
-        <div class="col-sm-1">
-          <a ng-click="admin.update(user)" class="floppy">
-            <span class="fa fa-floppy-o fa-2x"></span>
-          </a>
-
-        </div>
-        <div class="col-sm-1">
-
-          <a ng-click="admin.delete(user)" class="trash">
-            <span class="fa fa-trash fa-2x"></span>
-          </a>
-        </div>
-      </div>
-    </li>
   </ul>
-
 
   <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
     <div class="modal-dialog modal-sm">
