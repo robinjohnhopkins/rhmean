@@ -13,32 +13,48 @@ export default function seedDatabaseIfNeeded() {
     Thing.find({}).remove()
       .then(() => {
         let thing = Thing.create({
-          name: 'Development Tools',
-          info: 'Integration with popular tools such as Webpack, Gulp, Babel, TypeScript, Karma, '
-                + 'Mocha, ESLint, Node Inspector, Livereload, Protractor, Pug, '
-                + 'Stylus, Sass, and Less.'
+          name: 'Admin',
+          info: 'Finish this app',
+          complete: false,
+          dateRequiredBy: Date.now(),
+          dateComplete: null
         }, {
-          name: 'Server and Client integration',
-          info: 'Built with a powerful and fun stack: MongoDB, Express, '
-                + 'AngularJS, and Node.'
+          name: 'Test User',
+          info: 'Go to client site and install a driver ' +
+            'report back.',
+          complete: false,
+          dateRequiredBy: Date.now(),
+          dateComplete: null
         }, {
           name: 'Smart Build System',
-          info: 'Build system ignores `spec` files, allowing you to keep '
-                + 'tests alongside code. Automatic injection of scripts and '
-                + 'styles into your app.html'
+          info: 'Build system ignores `spec` files, allowing you to keep ' +
+            'tests alongside code. Automatic injection of scripts and ' +
+            'styles into your app.html',
+          complete: false,
+          dateRequiredBy: Date.now(),
+          dateComplete: null
         }, {
           name: 'Modular Structure',
-          info: 'Best practice client and server structures allow for more '
-                + 'code reusability and maximum scalability'
+          info: 'Best practice client and server structures allow for more ' +
+            'code reusability and maximum scalability',
+          complete: false,
+          dateRequiredBy: Date.now(),
+          dateComplete: null
         }, {
           name: 'Optimized Build',
-          info: 'Build process packs up your templates as a single JavaScript '
-                + 'payload, minifies your scripts/css/images, and rewrites asset '
-                + 'names for caching.'
+          info: 'Build process packs up your templates as a single JavaScript ' +
+            'payload, minifies your scripts/css/images, and rewrites asset ' +
+            'names for caching.',
+          complete: false,
+          dateRequiredBy: Date.now(),
+          dateComplete: null
         }, {
           name: 'Deployment Ready',
-          info: 'Easily deploy your app to Heroku or Openshift with the heroku '
-                + 'and openshift subgenerators'
+          info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
+            'and openshift subgenerators',
+          complete: false,
+          dateRequiredBy: Date.now(),
+          dateComplete: null
         });
         return thing;
       })
@@ -48,19 +64,19 @@ export default function seedDatabaseIfNeeded() {
     User.find({}).remove()
       .then(() => {
         User.create({
-          provider: 'local',
-          name: 'Test User',
-          email: 'test@example.com',
-          password: 'test'
-        }, {
-          provider: 'local',
-          role: 'admin',
-          name: 'Admin',
-          email: 'admin@example.com',
-          password: 'admin'
-        })
-        .then(() => console.log('finished populating users'))
-        .catch(err => console.log('error populating users', err));
+            provider: 'local',
+            name: 'Test User',
+            email: 'test@example.com',
+            password: 'test'
+          }, {
+            provider: 'local',
+            role: 'admin',
+            name: 'Admin',
+            email: 'admin@example.com',
+            password: 'admin'
+          })
+          .then(() => console.log('finished populating users'))
+          .catch(err => console.log('error populating users', err));
       });
   }
 }

@@ -17,8 +17,10 @@ function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function (entity) {
     if (entity) {
+      console.log('respondWithResult ' + JSON.stringify(entity));
       return res.status(statusCode).json(entity);
     }
+    console.log('respondWithResult null');
     return null;
   };
 }
@@ -48,7 +50,9 @@ function removeEntity(res) {
 }
 
 function handleEntityNotFound(res) {
+  console.log('handleEntityNotFound ');
   return function (entity) {
+    console.log('handleEntityNotFound ' + JSON.stringify(entity));
     if (!entity) {
       res.status(404).end();
       return null;
@@ -58,8 +62,10 @@ function handleEntityNotFound(res) {
 }
 
 function handleError(res, statusCode) {
+  console.log('handleError ');
   statusCode = statusCode || 500;
   return function (err) {
+    console.log('handleError inner ' + JSON.stringify(err));
     res.status(statusCode).send(err);
   };
 }
@@ -88,6 +94,10 @@ export function create(req, res) {
 
 // Upserts the given Thing in the DB at the specified ID
 export function upsert(req, res) {
+  console.log('upsert thing');
+  console.log(req.body);
+  console.log(req.params.id);
+
   if (req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
@@ -106,6 +116,10 @@ export function upsert(req, res) {
 
 // Updates an existing Thing in the DB
 export function patch(req, res) {
+  console.log('patch thing');
+  console.log(req.body);
+  console.log(req.params.id);
+
   if (req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }

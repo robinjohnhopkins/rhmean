@@ -76,6 +76,9 @@ npm i;gulp build;npm start               # then mirrors what is happening on ope
 
 Run `gulp build` for building and `gulp serve` for preview.
 
+to run locally
+`npm run startlocalhost`
+
 ## Testing
 
 Running `npm test` will run the unit tests with karma.

@@ -52,7 +52,7 @@ function Socket(socketFactory) {
         } else {
           array.push(item);
         }
-
+        console.log('event ' + event);
         cb(event, item, array);
       });
 

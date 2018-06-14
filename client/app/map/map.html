@@ -64,6 +64,32 @@
         </div>
       </div>
     </div>
+    <div class="panel-body">
+      <div class="">
+        <ul class=" list-group user-list">
+          <li class="list-group-item" ng-repeat="user in mapctl.users">
+            <div class="user-info row">
+              <div class="col-sm-2">
+                <strong>{{user.name}}</strong>
+              </div>
+              <div class="col-sm-1">
+                <span class="text-muted">enabled</span>
+              </div>
+              <div class="col-sm-1">
+                <input type="checkbox" ng-model="user.enabled" ng-true-value="true" ng-false-value="false">
+              </div>
+              <div class="col-sm-3">
+                <span>pos=[{{user.lastlatitude}}, {{user.lastlongitude}}]
+                </span>
+              </div>
+              <div class="col-sm-5">
+                <span class="text-muted">{{user.status}}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 <script src="/public/scripts/ng-map.min.js"></script>
