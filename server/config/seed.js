@@ -5,6 +5,7 @@
 
 'use strict';
 import Thing from '../api/thing/thing.model';
+import Todo from '../api/todo/todo.model';
 import User from '../api/user/user.model';
 import config from './environment/';
 
@@ -61,7 +62,7 @@ export default function seedDatabaseIfNeeded() {
       .then(() => console.log('finished populating things'))
       .catch(err => console.log('error populating things', err));
 
-    User.find({}).remove()
+      User.find({}).remove()
       .then(() => {
         User.create({
             provider: 'local',
@@ -79,4 +80,32 @@ export default function seedDatabaseIfNeeded() {
           .catch(err => console.log('error populating users', err));
       });
   }
+
+  var createTestTodo = function (){
+      Todo.create({
+      name: 'Admin',
+      info: 'Finish this app super quick',
+      complete: false,
+      dateRequiredBy: Date.now(),
+      dateComplete: null
+    })
+    .then(() => console.log('finished populating todos'))
+    .catch(err => console.log('error populating todos', err));
+  };
+
+  Todo.findOne({}).exec()
+  .then( todo => {
+      if (todo){
+        console.log('already one todo');
+      } else {
+        console.log('create test todo');
+        createTestTodo();
+      }
+  })
+  .catch(err => {
+    console.log('catch checking todo existence', err);
+    createTestTodo();
+  });
+
 }
+

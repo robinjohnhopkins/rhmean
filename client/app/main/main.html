@@ -2,38 +2,20 @@
   <div class="container">
     <img src="assets/images/yeoman.png" height="22" alt="I'm Yeoman">Let's do this thing!
   </div>
-  <link href="/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.0.js"></script>
-
 </header>
 
 <div class="container">
-  <!-- <div class="row">
-        <div class="col-lg-12">
-          <h1 class="page-header">ToDo List:</h1>
-          <!- - This is how to get things to arrange differently depending on screen size 
-            <ul class=" nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in $ctrl.awesomeThings"> - - >
-          <ul class="" ng-repeat="thing in $ctrl.awesomeThings">
-            <li>
-              {{thing}}
-              <a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}
-                <button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div> -->
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">ToDo List:</h3>
+      <h3 class="page-header">Active Users:</h3>
       <ul class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
               <th class="col-lg-1">Username</th>
-              <th class="col-lg-6">Info</th>
+              <th class="col-lg-5">Info</th>
               <th class="col-lg-1">Complete</th>
-              <th class="col-lg-3">date required</th>
+              <th class="col-lg-2">date required</th>
               <th class="col-lg-2">date complete</th>
               <th class="col-lg-1">Action</th>
             </tr>
@@ -47,16 +29,11 @@
               </td>
               <td>
                 <p class="input-group">
-                  <input type="text" class="form-control" ng-click="thing.dateOpened = true;" datetimepicker-options="{{$ctrl.options}}" uib-datepicker-popup="dd-MMMM-yyyy"
-                    ng-model="thing.dateRequiredBy" is-open="thing.dateOpened" ng-blur="thing.dateOpened = false;" ng-focus="thing.dateOpened = true;"
-                  />
+                  <span>{{thing.dateRequiredBy|date}}</span>
                 </p>
               </td>
               <td>{{thing.dateComplete}}</td>
               <td>
-                  <a ng-click="$ctrl.update(thing)" class="floppy">
-                      <span class="fa fa-floppy-o fa-2x"></span>
-                    </a>
                 <a href="#" uib-tooltip="Delete todo {{thing.info}}">
                   <button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button>
                 </a>
@@ -65,7 +42,6 @@
           </tbody>
         </table>
       </ul>
-
     </div>
   </div>
   <form class="thing-form">

@@ -82,3 +82,9 @@ to run locally
 ## Testing
 
 Running `npm test` will run the unit tests with karma.
+
+
+## Front page Realtime Sync
+The Yeoman generated frontpage which I originally mapped to 'Thing' syncs in realtime across clients.
+This is particularly awesome. It not only syncs the values but also the events so you have to take
+this into consideration when designing your frontend.

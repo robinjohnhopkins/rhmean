@@ -11,7 +11,7 @@ var events = ['save', 'remove'];
 
 export function register(socket) {
   // Bind model events to socket events
-  for(var i = 0, eventsLength = events.length; i < eventsLength; i++) {
+  for (var i = 0, eventsLength = events.length; i < eventsLength; i++) {
     var event = events[i];
     var listener = createListener(`thing:${event}`, socket);
 
@@ -22,13 +22,13 @@ export function register(socket) {
 
 
 function createListener(event, socket) {
-  return function(doc) {
+  return function (doc) {
     socket.emit(event, doc);
   };
 }
 
 function removeListener(event, listener) {
-  return function() {
+  return function () {
     ThingEvents.removeListener(event, listener);
   };
 }

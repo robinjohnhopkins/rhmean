@@ -1,0 +1,75 @@
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <img src="assets/images/yeoman.png" height="22" alt="I'm Yeoman">Let's do this todo!
+  </div>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+  <!-- <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.0.js"></script> -->
+
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12" style="min-height: 400px;">
+      <h3 class="page-header">ToDo List:</h3>
+      <ul class="table-responsive">
+        <table class="table table-hover" style="min-height: 400px;">
+          <thead>
+            <tr>
+              <th class="col-lg-1">Username</th>
+              <th class="col-lg-4">Info</th>
+              <th class="col-lg-1">Complete</th>
+              <th class="col-lg-3">date required</th>
+              <th class="col-lg-2">date complete</th>
+              <th class="col-lg-1">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="alignrow" ng-repeat="todo in todoctl.awesomeTodos track by $index" vertical-align="middle">
+              <td>{{todo.name}}</td>
+              <td>{{todo.info}}</td>
+              <td>
+                <input type="checkbox" ng-model="todo.complete" ng-true-value="true" ng-false-value="false">
+              </td>
+              <td>
+                <p class="input-group">
+                  <div >
+                    <p class="input-group">
+                      <input type="text" class="form-control" ng-model="todo.dateRequiredBy" 
+                        uib-datepicker-popup="MMM dd, y" is-open="rows[todo.id]"
+                        datepicker-options="options" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(todo, $event)">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </p>
+              </td>
+              <td class="alignrow">{{todo.dateComplete | date}}</td>
+              <td>
+                <a ng-click="todoctl.update(todo)" class="floppy">
+                  <span class="fa fa-floppy-o fa-2x"></span>
+                </a>
+                <a href="#" uib-tooltip="Delete todo {{todo.info}}">
+                  <button type="button" class="close" ng-click="todoctl.deleteTodo(todo)">&times;</button>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ul>
+    </div>
+  </div>
+  <form class="todo-form">
+    <label>Add todo item...</label>
+    <p class="input-group">
+      <input type="text" class="form-control" placeholder="Add a new todo here." ng-model="todoctl.newTodo">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary" ng-click="todoctl.addTodo()">Add New</button>
+      </span>
+    </p>
+  </form>
+</div>
