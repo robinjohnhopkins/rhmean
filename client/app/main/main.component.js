@@ -7,9 +7,11 @@ export class MainController {
   newThing = '';
   
   /*@ngInject*/
-  constructor($http, $scope, socket) {
+  constructor($http, $scope, socket, Auth) {
     this.$http = $http;
     this.socket = socket;
+    this.isEnabledOrAdmin = Auth.isEnabledOrAdminSync;
+    this.isLoggedIn = Auth.isLoggedInSync;
   }
 
   $onInit() {
@@ -63,6 +65,7 @@ export default angular.module('mean1App.main', [ngRoute, 'ngMap'])
   .config(routing)
   .component('main', {
     template: require('./main.html'),
-    controller: MainController
+    controller: MainController,
+    controllerAs: 'mainctl',
   })
   .name;

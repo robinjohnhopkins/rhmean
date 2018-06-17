@@ -1,12 +1,29 @@
 <header class="hero-unit" id="banner">
   <div class="container">
-    <img src="assets/images/yeoman.png" height="22" alt="I'm Yeoman">Let's do this thing!
+    <img src="assets/images/yeoman.png" height="22" alt="I'm Yeoman">Let's do this thing! {{mainctl.isEnabledOrAdmin()}}
   </div>
 </header>
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="" ng-hide="mainctl.isEnabledOrAdmin()">
+      <div class="" ng-show="mainctl.isLoggedIn()">
+        <h3 class="page-header">Signed up</h3>
+        <p class="space-under">
+          You have signed up and need an admin to enable you.
+        </p>
+      </div>
+      
+      <div class="" ng-hide="mainctl.isLoggedIn()">
+        <h3 class="page-header">Login or Sign up</h3>
+        <p class="space-under">
+          This is an app for managing geo-locations of support staff for company XYZ.
+          In order to use you must login or sign up and wait for an administrator to enable your login.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-lg-12" ng-show="mainctl.isEnabledOrAdmin()">
       <h3 class="page-header">Active Users:</h3>
       <ul class="table-responsive">
         <table class="table table-hover">
@@ -21,7 +38,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="thing in $ctrl.awesomeThings track by $index">
+            <tr ng-repeat="thing in mainctl.awesomeThings track by $index">
               <td>{{thing.name}}</td>
               <td>{{thing.info}}</td>
               <td>
@@ -35,23 +52,22 @@
               <td>{{thing.dateComplete}}</td>
               <td>
                 <a href="#" uib-tooltip="Delete todo {{thing.info}}">
-                  <button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button>
+                  <button type="button" class="close" ng-click="mainctl.deleteThing(thing)">&times;</button>
                 </a>
               </td>
             </tr>
           </tbody>
         </table>
       </ul>
+      <form class="thing-form">
+        <label>Syncs in realtime across clients</label>
+        <p class="input-group">
+          <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="mainctl.newThing">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary" ng-click="mainctl.addThing()">Add New</button>
+          </span>
+        </p>
+      </form>
     </div>
   </div>
-  <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="$ctrl.newThing">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="$ctrl.addThing()">Add New</button>
-      </span>
-    </p>
-  </form>
-
 </div>

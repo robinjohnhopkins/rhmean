@@ -16,6 +16,8 @@ export class NavbarComponent {
 
     this.$location = $location;
     this.isLoggedIn = Auth.isLoggedInSync;
+    this.isEnabledOrAdmin = Auth.isEnabledOrAdminSync;
+    
     this.isAdmin = Auth.isAdminSync;
     this.getCurrentUser = Auth.getCurrentUserSync;
   }

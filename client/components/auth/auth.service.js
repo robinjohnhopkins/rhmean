@@ -148,6 +148,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     isLoggedIn(callback) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
+          console.log('isLoggedIn ' + JSON.stringify(user));
           let is = _.get(user, 'role');
 
           safeCb(callback)(is);
@@ -161,7 +162,24 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     isLoggedInSync() {
-      return !!_.get(currentUser, 'role');
+      var currentUserGet = _.get(currentUser, 'role');
+      //console.log('isLoggedInSync ' + JSON.stringify(currentUserGet)+ JSON.stringify(currentUser));
+      return !!currentUserGet;
+      // return !!_.get(currentUser, 'role');
+    },
+
+    /**
+     * Check if a user is enabled or admin
+     *
+     * @return {Bool}
+     */
+    isEnabledOrAdminSync() {
+      var currentUserEnabled = _.get(currentUser, 'enabled');
+      var currentUserRole = _.get(currentUser, 'role');
+      var enabledOrAdmin = currentUserEnabled === true || currentUserRole === 'admin';
+      //console.log('isEnabledSync ' + enabledOrAdmin + JSON.stringify(currentUserEnabled)+ JSON.stringify(currentUserRole)+ JSON.stringify(currentUser));
+      return enabledOrAdmin;
+      // return !!_.get(currentUser, 'role');
     },
 
     /**
@@ -174,6 +192,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     hasRole(role, callback) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
+          console.log('hasRole ' +JSON.stringify(user));
           let has = hasRole(_.get(user, 'role'), role);
 
           safeCb(callback)(has);
@@ -188,7 +207,11 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     hasRoleSync(role) {
-      return hasRole(_.get(currentUser, 'role'), role);
+      //console.log('hasRoleSync 1 ' +JSON.stringify(currentUser));
+      var getCurrentUser = _.get(currentUser, 'role');
+      //console.log('hasRoleSync 2 ' +JSON.stringify(getCurrentUser));
+      return hasRole(getCurrentUser, role);
+      // return hasRole(_.get(currentUser, 'role'), role);
     },
 
     /**
