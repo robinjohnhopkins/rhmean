@@ -5,10 +5,11 @@ export default class TodoController {
   newTodo = '';
   
   /*@ngInject, plus socket was a param of constructor*/
-  constructor($http, $scope) {
+  constructor($http, $scope, Auth) {
     console.log('TodoController');
     this.$http = $http;
-  
+    this.getCurrentUser = Auth.getCurrentUserSync;
+
     // datepicker popup
     this.$scope=$scope;
     $scope.open = function(row, e) {
@@ -28,7 +29,8 @@ export default class TodoController {
 
   getTodos() {
     console.log('TodoController onInit /api/todos');
-    this.$http.get('/api/todos')
+    // second param of get is config of which params maps tp req.query
+    this.$http.get('/api/todos', {params:{name: this.getCurrentUser().name}})
       .then(response => {
         console.log('TodoController /api/todos rcvd ');
         console.log(response.data);
@@ -45,8 +47,9 @@ export default class TodoController {
                      
   addTodo() {
     if (this.newTodo) {
+      // second param of post maps to req.body on node server
       this.$http.post('/api/todos', {
-        name: 'Admin',
+        name: this.getCurrentUser().name,
         info: this.newTodo,
         complete: false,
         dateRequiredBy: Date.now(),

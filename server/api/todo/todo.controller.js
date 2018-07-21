@@ -1,6 +1,6 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/todos              ->  index
+ * GET     /api/todos              ->  index optional query param name
  * POST    /api/todos              ->  create
  * GET     /api/todos/:id          ->  show
  * PUT     /api/todos/:id          ->  upsert
@@ -50,7 +50,6 @@ function removeEntity(res) {
 }
 
 function handleEntityNotFound(res) {
-  console.log('todo handleEntityNotFound ');
   return function (entity) {
     console.log('todo handleEntityNotFound ' + JSON.stringify(entity));
     if (!entity) {
@@ -62,7 +61,6 @@ function handleEntityNotFound(res) {
 }
 
 function handleError(res, statusCode) {
-  console.log('todo handleError ');
   statusCode = statusCode || 500;
   return function (err) {
     console.log('todo handleError inner ' + JSON.stringify(err));
@@ -70,8 +68,30 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Todos
+// Gets a list of Todos for named user
 export function index(req, res) {
+  console.log('index'+JSON.stringify(req.params));
+  if ( req.query  && req.query.name){
+    console.log('name=' + req.query.name);
+    return indexListForUser(req, res, req.query.name);
+  } else {
+    console.log('no name query');
+    return indexList(req, res);
+  }
+
+  return Todo.find({name:{$eq: 'aaa'}}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+// Gets a list of Todos for given named user
+export function indexListForUser(req, res, name) {
+  return Todo.find({name:{$eq: name}}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+// Gets a list of Todos
+export function indexList(req, res) {
   return Todo.find().exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -87,6 +107,9 @@ export function show(req, res) {
 
 // Creates a new Todo in the DB
 export function create(req, res) {
+  console.log('create todo'+JSON.stringify(req.body));
+  debugger;
+
   return Todo.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

@@ -72,6 +72,14 @@ then in package.json start mapped to gulp serve:distrh
     });
 npm i;gulp build;npm start               # then mirrors what is happening on open shift
 
+## RH debug local after getting into open shift
+on command line
+node --inspect server
+OR
+./node_modules/nodemon/bin/nodemon.js  --inspect server
+then start debug in vscode
+
+
 ## Build & development
 
 Run `gulp build` for building and `gulp serve` for preview.
