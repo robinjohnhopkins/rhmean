@@ -2,7 +2,7 @@
 
 export default class MapController {
   /*@ngInject*/
-  constructor(User, NgMap, $interval) {
+  constructor(User, NgMap, $interval, Geo) {
     // Use the User $resource to fetch all users
     var vm = this;
     console.log('smart');
@@ -11,6 +11,8 @@ export default class MapController {
     this.pluslatitude = 0.001;
     this.pluslongitude = 0.001;
     this.enableMovement = false;
+    this.Geo = Geo;
+    this.geoCurrentPosition = Geo.getCurrentPositionSync();
 
     this.people = [{
         id: 1,
@@ -73,13 +75,12 @@ export default class MapController {
       vm.map.showInfoWindow('myInfoWindow', this);
     };
 
-
     $interval(function () {
       vm.callAtInterval();
     }, 1000);
 
   } // end constructor
- 
+
   callAtInterval() {
     if (this.enableMovement) {
       console.log("callAtInterval - Interval occurred");
@@ -106,6 +107,7 @@ export default class MapController {
     }
     return returnUser;
   };
+
   moveDemo() {
     console.log('move demo');
     this.enableMovement = !this.enableMovement;
@@ -114,46 +116,33 @@ export default class MapController {
 
   geolocateCurrentUser() {
     var vm = this;
-    var handleLocationError = function (browserHasGeolocation, failure) {
-      if (failure) {
-        console.log(failure.message);
-      }
-      console.log('thought so - no location!!!!!' + browserHasGeolocation);
-    }
-
-    // Try HTML5 geolocation.Starting with Chrome 50, Chrome no longer 
-    // supports obtaining the user's location using the HTML5 
-    // Geolocation API from pages delivered by non-secure connections.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        vm.currentUser.lastlatitude = position.coords.latitude;
-        vm.currentUser.lastlongitude = position.coords.longitude;
-        console.log('got location!!!!!' + JSON.stringify(pos));
-        var person = vm.getPeopleArrayInstanceFromCurrentUser();
-        if (person) {
-          person.pos = pos;
+    vm.Geo.getCurrentPosition(function (pos) {
+      vm.geoCurrentPosition = pos;
+      if (vm.geoCurrentPosition) {
+        if (vm.currentUser) {
+          vm.currentUser.lastlatitude = vm.geoCurrentPosition.lat;
+          vm.currentUser.lastlongitude = vm.geoCurrentPosition.lon;
+          var person = vm.getPeopleArrayInstanceFromCurrentUser();
+          if (person) {
+            var pos = {
+              lat: vm.geoCurrentPosition.lat,
+              lng: vm.geoCurrentPosition.lon
+            };
+            person.pos = pos;
+            console.log('found me, set pos' + JSON.stringify(person.pos));
+          } else {
+            console.log('cannot find me');
+          }
         } else {
-          console.log('cannot find me');
+          console.log('no current user to pin pos');
         }
-
-      }, function (failure) {
-        handleLocationError(true, failure);
-      }, {
-        maximumAge: 60000,
-        timeout: 5000,
-        enableHighAccuracy: true
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, null);
-    }
+      } else {
+        console.log('no geoCurrentPosition');
+      }
+    });
   }
 
-  statusUpdate(){
+  statusUpdate() {
     console.log('statusUpdate ' + this.currentUser.status);
     this.currentUser.$save();
   }
